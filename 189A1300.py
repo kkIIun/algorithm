@@ -4,6 +4,7 @@ dp = [None] * (n + 1)
 dp[0] = 0
 
 for i in range(1, len(dp)):
+
     if i >= a:
         x = dp[i - a]
 
@@ -13,11 +14,12 @@ for i in range(1, len(dp)):
     if i >= c:
         z = dp[i - c]
 
-    if x == -1 and y == -1 and c == -1:
+    if x == -1 and y == -1 and z == -1:
         dp[i] = -1
 
     else:
         dp[i] = max(x, y, z) + 1
+    x, y, z = -1, -1, -1
 
 if dp[n] == -1:
     print("error")
