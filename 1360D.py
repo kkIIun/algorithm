@@ -16,4 +16,4 @@ for _ in range(t):
                 if n // i <= k:
                     ans = min(ans, i)
 
-        printing(ans)
+        print(ans)
