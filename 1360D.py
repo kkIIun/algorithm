@@ -13,7 +13,7 @@ for _ in range(t):
             if n % i == 0:
                 if i <= k:
                     ans = min(ans, n // i)
-                elif n // i <= k:
+                if n // i <= k:
                     ans = min(ans, i)
 
         print(ans)
