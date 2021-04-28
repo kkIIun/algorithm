@@ -21,3 +21,4 @@ for _ in range(t):
             l = i + 1
 
     print(ans + 1, l)
+
