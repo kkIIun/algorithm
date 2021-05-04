@@ -2,7 +2,7 @@ n, m = map(int,input().split())
 
 click = 0
 stack = []
-visited = [False] * 10000
+visited = [False] * 1000000
 stack.append(n)
 while m not in stack :    
     pop = []
