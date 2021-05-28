@@ -6,7 +6,6 @@ for _ in range(t):
     n, k = map(int, input().split())
     a = [int(x) for x in input().split()]
     a.sort()
-
     ans = 0
     while a:
         l, r = 0, len(a) - 1
