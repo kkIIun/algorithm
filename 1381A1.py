@@ -31,4 +31,4 @@ for _ in range(t):
                 a[i] = 0
         a = a[: k + 1][::-1] + a[k + 1 :]
 
-    print(str(ans) + " " + string)
+    print(str(ans) + " "+ string)
