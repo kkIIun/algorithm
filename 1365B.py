@@ -5,7 +5,8 @@ for _ in range(t):
     a = [int(x) for x in input().split()]
     b = [int(x) for x in input().split()]
 
-    o, z = 0, 0
+    o = 0
+    z = 0
     for i in range(len(a)):
         if b[i]:
             o += 1
