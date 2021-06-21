@@ -1,4 +1,3 @@
-
 import heapq,sys
 
 maxheap = []
@@ -22,7 +21,4 @@ for i in range(n):
         heapq.heappush(maxheap, (-mintemp,mintemp))
         heapq.heappush(minheap, (maxtemp,maxtemp))
     
-    ans.append(maxheap[0][1])
-
-for i in ans:
-    print(i)
+    print(maxheap[0][1])
