@@ -15,3 +15,5 @@ for i in range(1,n+1) :
             P[i][j] = max(P[i-1][j], v[i-1] + P[i-1][j-w[i-1]])
 
 print(P[n][k])
+
+
