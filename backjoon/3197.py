@@ -1,9 +1,8 @@
+from collections import deque
 def melt():
     size = len(water)
     for _ in range(size):
-        x = water[0][1]
-        y = water[0][0]
-        water.pop(0)
+        y,x = water.popleft() 
         for i in range(4):
             next_x = x + move[i][0]
             next_y = y + move[i][1]
@@ -17,18 +16,16 @@ def melt():
 
 def bfs():
     day = 0
-    next_q = [[swan[0][0], swan[0][1]]]
-    q = []
+    next_q = deque()
+    next_q.append([swan[0][0], swan[0][1]])
+    q = deque()
     visited = [[0 for _ in range(Col)] for _ in range(Row)]
     visited[next_q[0][0]][next_q[0][1]] = 1
     while 1:
-        q = next_q[:]
-        next_q = []
+        q = next_q
+        next_q = deque()
         while q:
-            x = q[0][1]
-            y = q[0][0]
-            q.pop(0)
-
+            y, x =q.popleft()
             if y == swan[1][0] and x == swan[1][1]:
                 return day
 
@@ -51,7 +48,7 @@ def bfs():
 
 
 Row, Col = map(int, input().split())
-water = []
+water = deque()
 swan = []
 lake = []
 move = [[1, 0], [0, 1], [-1, 0], [0, -1]]
