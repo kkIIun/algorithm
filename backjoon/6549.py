@@ -26,4 +26,5 @@ while 1:
 
         elif not (q) and answer < h[temp] * n:
             answer = h[temp] * n
-    print(answer, q)
+
+    print(answer)
