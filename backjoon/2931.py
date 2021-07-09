@@ -10,9 +10,11 @@ def findSE():
         for j in range(c):
             if Map[i][j] == "M":
                 start.append((i, j))
+                Map[i][j] = "."
 
             if Map[i][j] == "Z":
                 end.append((i, j))
+                Map[i][j] = "."
 
 
 def append(x, y, Dir, q):
@@ -27,7 +29,7 @@ def dfs():
     for i in range(4):
         ny, nx = y + move[i][0], x + move[i][1]
 
-        if ny < 0 or nx < 0 or ny >= r or nx >= c:
+        if ny < 0 or nx < 0 or ny >= r or nx >= c or Map[ny][nx] == ".":
             continue
 
         if Map[ny][nx] == "|" and (i == 4 or i == 2):
@@ -105,7 +107,7 @@ def dfs():
             append(x, y, Dir, q)
 
         else:
-            return (Dir, y, x)
+            return (y, x)
 
 
 r, c = map(int, input().split())
@@ -113,4 +115,58 @@ Map = [list(input()) for _ in range(r)]
 start = []
 end = []
 findSE()
-print(dfs())
+y, x = dfs()
+stack = []
+for i in range(4):
+    ny, nx = y + move[i][0], x + move[i][1]
+
+    if ny < 0 or nx < 0 or ny >= r or nx >= c or Map[ny][nx] == ".":
+        continue
+
+    if Map[ny][nx] == "|" and (i == 0 or i == 2):
+        continue
+
+    elif Map[ny][nx] == "-" and (i == 3 or i == 1):
+
+        continue
+
+    elif Map[ny][nx] == "1" and (i == 0 or i == 1):
+
+        continue
+
+    elif Map[ny][nx] == "2" and (i == 0 or i == 3):
+
+        continue
+
+    elif Map[ny][nx] == "3" and (i == 3 or i == 2):
+
+        continue
+
+    elif Map[ny][nx] == "4" and (i == 2 or i == 1):
+
+        continue
+
+    stack.append(i)
+x += 1
+y += 1
+
+if [1, 3] == stack:
+    print(y, x, "|")
+
+elif [0, 2] == stack:
+    print(y, x, "-")
+
+elif [0, 1] == stack:
+    print(y, x, "1")
+
+elif [0, 3] == stack:
+    print(y, x, "2")
+
+elif [2, 3] == stack:
+    print(y, x, "3")
+
+elif [1, 2] == stack:
+    print(y, x, "4")
+
+else:
+    print(y, x, "+")
