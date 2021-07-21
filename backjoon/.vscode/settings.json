@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "ios": "cpp",
+        "tuple": "cpp",
+        "queue": "cpp",
+        "set": "cpp"
+    }
+}
