@@ -14,7 +14,6 @@ queue<tuple<ll, ll, ll>> q;
 vector<ll> v;
 ll ans = 0;
 
-
 int main(void)
 {
     ios_base::sync_with_stdio(false);
