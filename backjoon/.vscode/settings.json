@@ -3,6 +3,7 @@
         "ios": "cpp",
         "tuple": "cpp",
         "queue": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "utility": "cpp"
     }
 }
