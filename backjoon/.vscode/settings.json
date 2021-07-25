@@ -4,6 +4,7 @@
         "tuple": "cpp",
         "queue": "cpp",
         "set": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "vector": "cpp"
     }
 }
