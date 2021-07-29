@@ -1,24 +1,12 @@
-#include <iostream>
-#include <string>
-#include <algorithm>
-#include <vector>
-#include <queue>
-#include <memory.h>
-#include <limits>
-#include <set>
-#include <string>
-#include <stdio.h>
+#include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
-typedef unsigned long long ll;
-ll n;
-ll dp[255][62555];
-ll arr[255][2];
-ll INF = 198654321;
+const ll INF = 198654321;
+ll n, dp[255][62555], arr[255][2];
 
 void Solve()
 {
-    ll ans = INF;
     dp[1][arr[1][0]] = 0;
     dp[1][0] = arr[1][1];
     for (ll i = 2; i <= n; i++)
@@ -28,8 +16,11 @@ void Solve()
                 dp[i][j + arr[i][0]] = dp[i - 1][j];
                 dp[i][j] = min(dp[i][j], dp[i - 1][j] + arr[i][1]);
             }
+
+    ll ans = INF;
     for (ll j = 0; j < 62555; j++)
         ans = min(ans, max(j, dp[n][j]));
+
     cout << ans << '\n';
 }
 
