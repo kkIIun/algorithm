@@ -18,6 +18,7 @@ void Solution()
     for (int i = 1; i <= N; i++)
     {
         if (V.size() == 0 || V[V.size() - 1] < Arr[i])
+
             V.push_back(Arr[i]);
 
         else
