@@ -14,6 +14,9 @@
         "random": "cpp",
         "semaphore": "cpp",
         "valarray": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp",
+        "filesystem": "cpp",
+        "iosfwd": "cpp"
     }
 }
