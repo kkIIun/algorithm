@@ -3,83 +3,37 @@
 using namespace std;
 typedef long long ll;
 
-string s;
-vector<ll> num;
-ll arr[10][10], ans[10];
+ll num[10], N, temp;
 
-void init()
+void Solve(ll start, ll end, ll placeOfNum)
 {
-    for (ll i = 0; i < 10; i++)
-        arr[1][i] = 1;
-
-    for (ll i = 2; i < 10; i++)
-        for (ll j = 0; j < 10; j++)
-        {
-            if (j != 0)
-                arr[i][j] = pow(10, (i - 1));
-            else
-            {
-                arr[i][j] += (i - 2) * 10;
-                ll a = 10;
-                for (ll k = i - 3; k > 0; k--)
-                {
-                    arr[i][j] += k * 9 * a;
-                    a *= 10;
-                }
-                arr[i][j] *= 9;
-            }
-            arr[i][j] += arr[i - 1][j] * 10;
-        }
-}
-
-void Solve()
-{
-    cin >> s;
-    init();
-    reverse(s.begin(), s.end());
-
-    for (ll i = 0; i < s.size(); i++)
-        num.push_back(s[i] - '0');
-
-    for (ll i = 0; i < num.size(); i++)
+    while (start % 10 != 0 && start <= end)
     {
-        if (!num[i])
-            continue;
-
-        for (ll j = i + 1; j < num.size(); j++)
-            ans[num[j]] += num[i] * pow(10, i);
-
-        if (i == 0)
-            for (ll j = 0; j <= num[i]; j++)
-                ans[j] += 1;
-
-        else
+        temp = start;
+        while (temp > 0)
         {
-            for (ll j = 0; j < 10; j++)
-            {
-                if (j < num[i] && j != 0)
-                    ans[j] += pow(10, i);
-
-                if (j == 0 && i > 1)
-                {
-                    ans[j] += (i - 1) * 10;
-                    ll a = 10;
-                    for (ll k = i - 2; k > 0; k--)
-                    {
-                        ans[j] += k * 9 * a;
-                        a *= 10;
-                    }
-                    ans[j] *= (num[i] - 1);
-                }
-                ans[j] += arr[i][j] * num[i];
-            }
+            num[temp % 10] += placeOfNum;
+            temp /= 10;
         }
-
-        ans[0] += i - 1;
-        ans[num[i]] += 1;
+        start++;
     }
+    if (start > end)
+        return;
+    while (end % 10 != 9 && end >= start)
+    {
+        temp = end;
+        while (temp > 0)
+        {
+            num[temp % 10] += placeOfNum;
+            temp /= 10;
+        }
+        end--;
+    }
+
     for (ll i = 0; i < 10; i++)
-        cout << ans[i] << ' ';
+        num[i] += (end / 10 - start / 10 + 1) * placeOfNum;
+
+    Solve(start / 10, end / 10, placeOfNum * 10);
 }
 
 int main(void)
@@ -87,6 +41,9 @@ int main(void)
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    Solve();
+    cin >> N;
+    Solve(1, N, 1);
+    for (ll i = 0; i < 10; i++)
+        cout << num[i] << ' ';
     return 0;
 }
