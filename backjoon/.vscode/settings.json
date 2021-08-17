@@ -37,6 +37,7 @@
         "list": "cpp",
         "regex": "cpp",
         "span": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "memory": "cpp"
     }
 }
