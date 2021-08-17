@@ -91,7 +91,7 @@ void bfs(pair<ll, ll> pos[2])
     }
 }
 
-void Solve()
+void solve()
 {
     input();
 
@@ -108,10 +108,6 @@ void Solve()
     bfs(A);
     visited[A[1].second][A[1].first] = visited[A[1].second][A[1].first] == -1 ? INF : visited[A[1].second][A[1].first];
     ans = min(ans, visited[A[1].second][A[1].first] + visited[B[1].second][B[1].first]);
-    if (ans >= INF)
-        cout << "IMPOSSIBLE" << endl;
-    else
-        cout << ans << endl;
 }
 
 int main(void)
@@ -119,6 +115,10 @@ int main(void)
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    Solve();
+    solve();
+    if (ans >= INF)
+        cout << "IMPOSSIBLE" << endl;
+    else
+        cout << ans << endl;
     return 0;
 }
