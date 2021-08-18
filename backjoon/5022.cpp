@@ -2,7 +2,8 @@
 
 using namespace std;
 typedef long long ll;
-ll n, m, INF = 987654321, ans = INF;
+const ll INF = 987654321;
+ll n, m, ans;
 pair<ll, ll> A[2], B[2];
 ll dx[4] = {1, 0, -1, 0};
 ll dy[4] = {0, 1, 0, -1};
