@@ -38,6 +38,7 @@
         "regex": "cpp",
         "span": "cpp",
         "stack": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "bitset": "cpp"
     }
 }
