@@ -28,6 +28,7 @@ void solve()
 
         if (sum % 2)
         {
+            resultNum = mid;
             hi = mid - 1;
         }
         else
