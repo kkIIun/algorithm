@@ -8,10 +8,9 @@ bool flag;
 
 ll getParent(ll a)
 {
-    cout << a << endl;
     if (parent[a] == a)
         return a;
-    getParent(parent[a]);
+    parent[a] = getParent(parent[a]);
     return parent[a];
 }
 
@@ -23,7 +22,6 @@ void solve()
     while (p--)
     {
         cin >> n;
-
         if (!flag)
         {
             n = getParent(n);
