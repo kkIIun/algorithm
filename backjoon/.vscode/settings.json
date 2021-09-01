@@ -40,6 +40,7 @@
         "stack": "cpp",
         "memory": "cpp",
         "bitset": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "__tuple": "cpp"
     }
 }
