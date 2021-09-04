@@ -1,1 +1,1 @@
-d
+double m = (pos[0].first - pos[1].first) / (pos[0].second - pos[1].second);
