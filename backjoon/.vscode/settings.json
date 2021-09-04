@@ -41,6 +41,22 @@
         "memory": "cpp",
         "bitset": "cpp",
         "type_traits": "cpp",
-        "__tuple": "cpp"
+        "__tuple": "cpp",
+        "__functional_03": "cpp",
+        "__mutex_base": "cpp",
+        "__node_handle": "cpp",
+        "any": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp",
+        "future": "cpp",
+        "istream": "cpp",
+        "optional": "cpp",
+        "shared_mutex": "cpp",
+        "sstream": "cpp",
+        "streambuf": "cpp",
+        "thread": "cpp",
+        "variant": "cpp",
+        "stop_token": "cpp",
+        "syncstream": "cpp"
     }
 }
