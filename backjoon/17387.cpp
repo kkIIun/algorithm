@@ -3,8 +3,6 @@
 using namespace std;
 typedef long long ll;
 
-bool flag;
-
 ll ccw(ll x1, ll y1, ll x2, ll y2, ll x3, ll y3)
 {
     ll temp = x1 * y2 + y1 * x3 + x2 * y3 - (y2 * x3 + x1 * y3 + y1 * x2);
