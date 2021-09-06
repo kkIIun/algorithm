@@ -3,7 +3,6 @@
 using namespace std;
 typedef long long ll;
 
-ll cnt, pi[1000001];
 vector<ll> ans;
 
 vector<ll> getPi(string P)
@@ -13,7 +12,7 @@ vector<ll> getPi(string P)
     for (ll i = 1; i < pLen; i++)
     {
         while (j > 0 && P[i] != P[j])
-            j = P[j - 1];
+            j = pi[j - 1];
         if (P[i] == P[j])
             pi[i] = ++j;
     }
@@ -23,8 +22,7 @@ vector<ll> getPi(string P)
 vector<ll> kmp(string T, string P)
 {
     vector<ll> ans;
-    ll tLen = (ll)T.size(), j = 0;
-    ll pLen = (ll)P.size();
+    ll tLen = (ll)T.size(), pLen = (ll)P.size(), j = 0;
 
     auto pi = getPi(P);
 
@@ -35,7 +33,10 @@ vector<ll> kmp(string T, string P)
         if (T[i] == P[j])
         {
             if (j == pLen - 1)
+            {
                 ans.push_back(i - j + 1);
+                j = pi[j];
+            }
             else
                 j++;
         }
@@ -49,7 +50,7 @@ void solve()
     getline(cin, T);
     getline(cin, P);
     auto ans = kmp(T, P);
-    cout << (ll)ans.size() << endl;
+    cout << (ll)ans.size() << '\n';
     for (ll i = 0; i < (ll)ans.size(); i++)
         cout << ans[i] << ' ';
 }
