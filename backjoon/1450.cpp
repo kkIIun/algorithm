@@ -20,6 +20,23 @@ vector<ll> splitArr(ll left, ll len)
     return result;
 }
 
+ll upperBound(ll target, vector<ll> &g2)
+{
+    if (target < g2[0])
+        return 0;
+
+    ll left = 0, right = g2.size() - 1;
+    while (left < right)
+    {
+        ll mid = ceil((left + right) / 2.0);
+        if (target >= g2[mid])
+            left = mid;
+        else
+            right = mid - 1;
+    }
+    return left + 1;
+}
+
 void solve()
 {
     cin >> n >> c;
@@ -30,19 +47,8 @@ void solve()
     vector<ll> g2 = splitArr(n / 2, ceil(n / 2.0));
     sort(g2.begin(), g2.end());
     for (ll i = 0; i < g1.size(); i++)
-    {
-        ll left = 0, right = g2.size() - 1;
-        while (left < right)
-        {
-            ll mid = ceil((left + right) / 2.0);
-            if (c - g1[i] >= g2[mid])
-                left = mid;
-            else
-                right = mid - 1;
-        }
-        ans += left + 1;
-        // ans += upper_bound(g2.begin(), g2.end(), c - g1[i]) - g2.begin();
-    }
+        ans += upperBound(c - g1[i], g2);
+
     cout << ans << endl;
 }
 
