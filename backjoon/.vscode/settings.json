@@ -57,6 +57,8 @@
         "thread": "cpp",
         "variant": "cpp",
         "stop_token": "cpp",
-        "syncstream": "cpp"
+        "syncstream": "cpp",
+        "complex": "cpp",
+        "cmath": "cpp"
     }
 }
