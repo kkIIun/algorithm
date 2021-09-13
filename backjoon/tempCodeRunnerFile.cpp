@@ -1,1 +1,1 @@
-cout << S << endl;
+i
