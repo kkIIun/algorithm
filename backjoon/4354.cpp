@@ -1,61 +1,33 @@
-#include <bits/stdc++.h>
-
+#include <cstdio>
+#include <cstring>
 using namespace std;
-typedef long long ll;
 
-vector<ll> v;
-string T;
-
-vector<ll> getPi(string P)
+int main()
 {
-    ll pLen = (ll)P.size(), j = 0;
-    vector<ll> pi(pLen, 0);
-    for (ll i = 1; i < pLen; i++)
-    {
-        while (j > 0 && P[i] != P[j])
-            j = pi[j - 1];
-        if (P[i] == P[j])
-            pi[i] = ++j;
-    }
-    return pi;
-}
-
-void solve()
-{
-    string P = T;
-    ll ans = 0;
-    sort(P.begin(), P.end());
-    P.erase(unique(P.begin(), P.end()), P.end());
-    for (ll i = 0; i < P.size(); i++)
-    {
-        auto v = kmp(T, P[i]);
-        vector<ll> arr;
-        arr.assign(v.size(), 0);
-        for (ll i = 0; i < v.size() - 2; i++)
-            if (v[i + 1] - v[i] == v[i + 2] - v[i + 1])
-            {
-                for (ll j = 0; j < v[i + 1] - v[i]; j++)
-                    if (T[v[i] + j] != T[v[i + 1] + j])
-                        break;
-                    else if (j == v[i + 1] - v[i] - 1)
-                        arr[i + 1] = arr[i] + 1;
-            }
-        ans = max(ans, *max_element(arr.cbegin(), arr.cend()));
-    }
-    cout << ans + 1 << '\n';
-}
-
-int main(void)
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
     while (1)
     {
-        getline(cin, T);
-        if (T[0] == '.')
+        char S[1000001];
+        scanf("%s", S);
+        if (S[0] == '.')
             break;
-        solve();
+        int N = strlen(S);
+
+        // pi 배열을 구함
+        int pi[1000000] = {0}, j = 0;
+        for (int i = 1; i < N; i++)
+        {
+            while (j > 0 && S[i] != S[j])
+                j = pi[j - 1];
+            if (S[i] == S[j])
+                pi[i] = ++j;
+        }
+        int q = pi[N - 1], r = N - q;
+
+        // 반복되는 문자열이 없는 경우
+        if (q == 0 || q % r != 0)
+            puts("1");
+        // 반복되는 문자열이 있는 경우
+        else
+            printf("%d\n", q / r + 1);
     }
-    return 0;
 }
