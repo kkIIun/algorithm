@@ -1,37 +1,36 @@
 #include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 typedef long long ll;
 
-ll v, e, visited[100001], cnt;
-vector<vector<ll>> ans, front, back;
+ll v, e, visited[10001], cnt;
+vector<vector<ll>> front, back, ans;
 stack<ll> st;
 
 bool cmp(vector<ll> a, vector<ll> b)
 {
-    return a[0] < b[0];
+    return (a.front() < b.front());
 }
 
-void Fdfs(ll cur)
+void forwardDfs(ll start)
 {
-    visited[cur] = 1;
-    for (auto next : front[cur])
-    {
+    visited[start] = 1;
+    for (ll next : front[start])
         if (!visited[next])
-            Fdfs(next);
-    }
-    st.push(cur);
+            forwardDfs(next);
+    st.push(start);
 }
 
-void Rdfs(ll cur)
+void reverseDfs(ll start)
 {
-    visited[cur] = 1;
-    ans[cnt - 1].push_back(cur);
-    for (auto next : back[cur])
-    {
+    visited[start] = 1;
+    ans[cnt].push_back(start);
+    for (ll next : back[start])
         if (!visited[next])
-            Rdfs(next);
-    }
+            reverseDfs(next);
 }
 
 void solve()
@@ -39,6 +38,7 @@ void solve()
     cin >> v >> e;
     front.resize(v + 1);
     back.resize(v + 1);
+    ans.resize(v + 1);
     ll a, b;
     for (ll i = 0; i < e; i++)
     {
@@ -46,26 +46,26 @@ void solve()
         front[a].push_back(b);
         back[b].push_back(a);
     }
-
     for (ll i = 1; i <= v; i++)
         if (!visited[i])
-            Fdfs(i);
-
+            forwardDfs(i);
     memset(visited, 0, sizeof(visited));
     while (!st.empty())
     {
-        ll cur = st.top();
+        ll temp = st.top();
         st.pop();
-        if (!visited[cur])
+        if (!visited[temp])
         {
-            ans.resize(++cnt);
-            Rdfs(cur);
+            reverseDfs(temp);
+            cnt++;
         }
     }
-    cout << cnt << '\n';
+
     for (ll i = 0; i < cnt; i++)
         sort(ans[i].begin(), ans[i].end());
-    sort(ans.begin(), ans.end(), cmp);
+    sort(ans.begin(), ans.begin() + cnt);
+
+    cout << cnt << '\n';
     for (ll i = 0; i < cnt; i++)
     {
         for (ll j = 0; j < ans[i].size(); j++)
