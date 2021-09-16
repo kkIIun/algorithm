@@ -3,53 +3,59 @@
 using namespace std;
 typedef long long ll;
 
-ll n, c, ans, visited[32768];
+ll ans;
 vector<ll> v;
-
-vector<ll> splitArr(ll left, ll len)
-{
-    vector<ll> result;
-    for (ll i = 0; i < (1 << len); i++)
-    {
-        ll sum = 0;
-        for (ll j = 0; j < len; j++)
-            if ((1 << j) & i)
-                sum += v[left + j];
-        result.push_back(sum);
-    }
-    return result;
-}
-
-ll upperBound(ll target, vector<ll> &g2)
-{
-    if (target < g2[0])
-        return 0;
-
-    ll left = 0, right = g2.size() - 1;
-    while (left < right)
-    {
-        ll mid = ceil((left + right) / 2.0);
-        if (target >= g2[mid])
-            left = mid;
-        else
-            right = mid - 1;
-    }
-    return left + 1;
-}
 
 void solve()
 {
-    cin >> n >> c;
-    v.assign(n, 0);
-    for (ll i = 0; i < n; i++)
+    v.assign(6, 0);
+    for (ll i = 0; i < 6; i++)
         cin >> v[i];
-    vector<ll> g1 = splitArr(0, n / 2);
-    vector<ll> g2 = splitArr(n / 2, ceil(n / 2.0));
-    sort(g2.begin(), g2.end());
-    for (ll i = 0; i < g1.size(); i++)
-        ans += upperBound(c - g1[i], g2);
-
-    cout << ans << endl;
+    ll total, temp;
+    for (ll i = 5; i >= 0; i--)
+    {
+        switch (i)
+        {
+        case 5:
+            ans += v[i];
+            break;
+        case 4:
+            ans += v[i];
+            v[0] -= v[i] * 11;
+            break;
+        case 3:
+            ans += v[i];
+            v[1] -= v[i] * 5;
+            break;
+        case 2:
+            if (!v[i])
+                break;
+            ans += ceil(v[i] / 4.0);
+            v[i] %= 4;
+            if (!v[i])
+                break;
+            v[1] -= 7 - v[i] * 2;
+            v[0] -= 8 - v[i];
+            break;
+        case 1:
+            if (v[i] > 0)
+            {
+                ans += ceil(v[i] / 9.0);
+                v[i] %= 9;
+                if (!v[i])
+                    break;
+                v[0] -= 36 - v[i] * 4;
+            }
+            else
+                v[0] += v[i] * 4;
+            break;
+        case 0:
+            if (v[i] <= 0)
+                break;
+            ans += ceil(v[i] / 36.0);
+            break;
+        }
+    }
 }
 
 int main(void)
@@ -58,5 +64,6 @@ int main(void)
     cin.tie(0);
     cout.tie(0);
     solve();
+    cout << ans << '\n';
     return 0;
 }
