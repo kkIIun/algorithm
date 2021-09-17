@@ -4,19 +4,30 @@ using namespace std;
 typedef long long ll;
 
 ll n;
-vector<pair<ll, ll>> v;
+vector<pair<ll, ll>> v, temp;
 
-ll calc(ll start, ll end, ll mid)
+bool cmp(pair<ll, ll> a, pair<ll, ll> b)
 {
-    ll result = 800000001;
-    for (ll i = start; i <= mid; i++)
-        for (ll j = mid + 1; j <= end; j++)
+    return a.second < b.second;
+}
+
+ll calc(ll start, ll end, ll dist)
+{
+    temp.assign(v.begin() + start, v.begin() + end + 1);
+    sort(temp.begin(), temp.end(), cmp);
+    for (ll i = 0; i < temp.size() - 1; i++)
+    {
+        ll j = i + 1;
+        while (j < temp.size() && pow(temp[j].second - temp[i].second, 2) < dist)
         {
-            ll temp = pow(v[i].first - v[j].first, 2) + pow(v[i].second - v[j].second, 2);
-            if (result > temp)
-                result = temp;
+            ll dx = pow(temp[j].first - temp[i].first, 2);
+            ll dy = pow(temp[j].second - temp[i].second, 2);
+            if (dx + dy < dist)
+                dist = dx + dy;
+            j++;
         }
-    return result;
+    }
+    return dist;
 }
 
 ll find(ll left, ll right)
@@ -26,17 +37,17 @@ ll find(ll left, ll right)
 
     ll mid = (left + right) / 2;
     ll Min = min(find(left, mid), find(mid, right));
-    ll nL = mid, nR = mid + 1;
+    ll nL = mid, nR = mid;
     while (1)
     {
-        if (nL > left && sqrt(Min) > v[mid].first - v[nL].first)
+        if (nL > left && sqrt(Min) > v[mid].first - v[nL - 1].first)
             nL--;
-        else if (nR < right && sqrt(Min) > v[nR].first - v[mid].first)
+        else if (nR < right && sqrt(Min) > v[nR + 1].first - v[mid].first)
             nR++;
         else
             break;
     }
-    Min = min(Min, calc(nL, nR, mid));
+    Min = min(Min, calc(nL, nR, Min));
     return Min;
 }
 

@@ -1,1 +1,1 @@
- 
+    temp.assign(v.begin()
