@@ -59,6 +59,7 @@
         "stop_token": "cpp",
         "syncstream": "cpp",
         "complex": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "__locale": "cpp"
     }
 }
