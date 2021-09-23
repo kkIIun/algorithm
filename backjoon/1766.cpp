@@ -6,22 +6,22 @@ typedef long long ll;
 ll n, k, End;
 vector<vector<ll>> graph;
 vector<ll> indegree;
-vector<ll> visited;
 
-void bfs(ll start)
+void bfs()
 {
-    queue<ll> q;
-    q.push(start);
+    priority_queue<ll, vector<ll>, greater<ll>> pq;
+    for (ll i = 1; i <= n; i++)
+        if (!indegree[i])
+            pq.push(i);
 
-    while (!q.empty())
+    while (!pq.empty())
     {
-        ll cur = q.front();
-        visited[cur] = 1;
+        ll cur = pq.top();
         cout << cur << ' ';
-        q.pop();
+        pq.pop();
         for (auto next : graph[cur])
             if (--indegree[next] == 0)
-                q.push(next);
+                pq.push(next);
     }
 }
 
@@ -41,14 +41,8 @@ void solve()
     cin >> n >> k;
     graph.assign(n + 1, vector<ll>());
     indegree.assign(n + 1, 0);
-    visited.assign(n + 1, 0);
     init();
-    for (ll i = 1; i <= n; i++)
-        if (!indegree[i] && graph[i].size())
-            bfs(i);
-    for (ll i = 1; i <= n; i++)
-        if (!visited[i])
-            cout << i << ' ';
+    bfs();
 }
 
 int main(void)
