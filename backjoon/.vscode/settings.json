@@ -60,6 +60,7 @@
         "syncstream": "cpp",
         "complex": "cpp",
         "cmath": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "system_error": "cpp"
     }
 }
