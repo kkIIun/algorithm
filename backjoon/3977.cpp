@@ -8,56 +8,35 @@ vector<vector<ll>> v, rev;
 vector<ll> visited, SCC, indegree;
 stack<ll> st;
 
-void dfs1(ll cur)
+void dfs(ll cur)
 {
+    visited[cur] = 1;
     for (auto next : v[cur])
         if (!visited[next])
-        {
-            visited[next] = 1;
-            dfs1(next);
-        }
+            dfs(next);
     st.push(cur);
 }
 
-void dfs2(ll cur, ll idx)
+void dfs(ll cur, ll idx)
 {
+    visited[cur] = 1;
     SCC[cur] = idx;
     for (auto next : rev[cur])
         if (!visited[next])
-        {
-            visited[next] = 1;
-            dfs2(next, idx);
-        }
+            dfs(next, idx);
 }
 
-void bfs()
+ll count()
 {
-    queue<ll> q;
+    ll cnt = 0;
     for (ll i = 0; i < indegree.size(); i++)
         if (!indegree[i])
         {
-            for (ll j = 0; j < n; j++)
-                if (SCC[j] == i)
-                {
-                    q.push(j);
-                    visited[j] = 1;
-                    break;
-                }
+            cnt++;
             temp = i;
-            break;
         }
 
-    while (!q.empty())
-    {
-        ll cur = q.front();
-        q.pop();
-        for (auto next : v[cur])
-            if (!visited[next])
-            {
-                visited[next] = 1;
-                q.push(next);
-            }
-    }
+    return cnt;
 }
 
 void init()
@@ -83,10 +62,7 @@ void solve()
 
     for (ll i = 0; i < n; i++)
         if (!visited[i])
-        {
-            visited[i] = 1;
-            dfs1(i);
-        }
+            dfs(i);
 
     visited.assign(n, 0);
 
@@ -96,31 +72,23 @@ void solve()
         ll temp = st.top();
         st.pop();
         if (!visited[temp])
-        {
-            visited[temp] = 1;
-            dfs2(temp, t);
-            t++;
-        }
+            dfs(temp, t++);
     }
 
     indegree.assign(t, 0);
     for (ll i = 0; i < n; i++)
-        for (ll j = 0; j < v[i].size(); j++)
-            if (SCC[i] != SCC[v[i][j]])
-                indegree[SCC[v[i][j]]]++;
+        for (auto j : v[i])
+            if (SCC[i] != SCC[j])
+                indegree[SCC[j]]++;
 
-    visited.assign(n, 0);
-    bfs();
-    for (ll i = 0; i < n; i++)
-        if (!visited[i])
+    if (count() == 1)
+        for (ll i = 0; i < n; i++)
         {
-            cout << "Confused" << '\n';
-            return;
+            if (SCC[i] == temp)
+                cout << i << '\n';
         }
-
-    for (ll i = 0; i < n; i++)
-        if (SCC[i] == temp)
-            cout << i << '\n';
+    else
+        cout << "Confused" << '\n';
 }
 
 int main(void)
