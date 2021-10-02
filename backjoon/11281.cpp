@@ -33,29 +33,6 @@ void dfs(ll cur, ll sccNum)
             dfs(next, sccNum);
 }
 
-bool bfs(ll start)
-{
-    queue<ll> q;
-    q.push(start);
-    visited[start] = 1;
-    while (!q.empty())
-    {
-        ll cur = q.front();
-        q.pop();
-
-        if (visited[cur] && visited[cur + 10000])
-            return false;
-
-        for (auto next : v[cur])
-            if (!visited[next])
-            {
-                visited[next] = 1;
-                q.push(next);
-            }
-    }
-    return true;
-}
-
 void solve()
 {
     cin >> n >> m;
@@ -92,35 +69,16 @@ void solve()
     for (ll i = 1; i <= n; i++)
         if (SCC[i] == SCC[i + 10000])
         {
-            cout << 0;
+            cout << 0 << '\n';
             return;
         }
-    cout << 1 << '\n';
-    memset(visited, 0, sizeof(visited));
-    if (bfs(1))
-    {
-        for (ll i = 1; i <= n; i++)
-        {
-            if (visited[i])
-                cout << 1 << ' ';
-            else
-                cout << 0 << ' ';
-        }
-        break;
-    }
 
-    else
-    {
-        memset(visited, 0, sizeof(visited));
-        bfs(10001);
-        for (ll i = 1; i <= n; i++)
-        {
-            if (visited[i])
-                cout << 1 << ' ';
-            else
-                cout << 0 << ' ';
-        }
-    }
+    cout << 1 << '\n';
+    for (ll i = 1; i <= n; i++)
+        if (SCC[i] > SCC[i + 10000])
+            cout << 1 << ' ';
+        else
+            cout << 0 << ' ';
 }
 
 int main(void)
