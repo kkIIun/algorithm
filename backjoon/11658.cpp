@@ -4,7 +4,7 @@ using namespace std;
 typedef long long ll;
 
 ll n, m, k, Map[1025][1025];
-ll tree[1048577][1048577];
+ll tree[3030][3030];
 
 void Colinit(ll start, ll end, ll Rnode, ll Cnode, ll rowS, ll rowE)
 {
@@ -106,12 +106,6 @@ void solve()
             cin >> c;
             setRowTree(1, n, 1, x, y, c);
             Map[y][x] = c;
-            // for (ll i = 1; i <= 7; i++)
-            // {
-            //     for (ll j = 1; j <= 7; j++)
-            //         cout << tree[i][j] << ' ';
-            //     cout << '\n';
-            // }
         }
     }
 }
