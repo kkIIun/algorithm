@@ -92,20 +92,15 @@ void solve()
         idx.push_back(next++);
     }
 
-    // for (ll i : idx)
-    //     for (ll j : idx)
-    //         ans = max(ans, dist(v[i], v[j]));
-    ll j = 1, j_next = 2, ln = idx.size();
-    for (ll i : idx)
+    ll j = 1, ln = idx.size();
+    for (ll i = 0; i < ln; i++)
     {
-        ll i_next = (i + 1) % ln;
-        while (j_next < ln && cccw(v[idx[i]], v[idx[i_next]], v[idx[j]], v[idx[j_next]]))
+        while (cccw(v[idx[i]], v[idx[(i + 1) % ln]], v[idx[j % ln]], v[idx[(j + 1) % ln]]))
         {
-            ans = max(ans, dist(v[idx[i]], v[idx[j]]));
-            j = (j + 1) % ln;
-            j_next = (j_next + 1) % ln;
+            ans = max(ans, dist(v[idx[i]], v[idx[j % ln]]));
+            j++;
         }
-        ans = max(ans, dist(v[idx[i]], v[idx[j]]));
+        ans = max(ans, dist(v[idx[i]], v[idx[j % ln]]));
     }
     printf("%.6lf\n", sqrt(ans));
 }
