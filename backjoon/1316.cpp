@@ -3,9 +3,11 @@
 using namespace std;
 typedef long long ll;
 
+ll visited[100];
+
 ll func(string s)
 {
-    vector<ll> visited(s.size(), 0);
+    memset(visited, 0, sizeof(visited));
     for (ll i = 0; i < s.size(); i++)
     {
         if (visited[s[i] - 'a'] && s[i] != s[i - 1])
