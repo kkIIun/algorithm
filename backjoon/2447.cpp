@@ -10,15 +10,15 @@ vector<vector<char>> rec(ll num)
 
     ll n = num / 3;
     vector<vector<char>> r = rec(n);
-    r.resize(num, vector<char>(num, ' '));
+    vector<vector<char>> c(num, vector<char>(num, ' '));
     for (ll i = 0; i < num; i++)
         for (ll j = 0; j < num; j++)
         {
             if (j >= n && j < n * 2 && i >= n && i < n * 2)
                 continue;
-            r[i][j] = r[i % n][j % n];
+            c[i][j] = r[i % n][j % n];
         }
-    return r;
+    return c;
 }
 
 int main(void)
