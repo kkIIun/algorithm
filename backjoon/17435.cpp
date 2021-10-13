@@ -21,7 +21,7 @@ void solve()
             dp[j][i] = dp[dp[j][i - 1]][i - 1];
 
     cin >> m;
-    ll x, y;
+    ll x, y,z;
     while (m--)
     {
         cin >> x >> y;
