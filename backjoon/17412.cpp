@@ -5,7 +5,7 @@ typedef long long ll;
 
 #define INF 1000000000
 
-ll visited[401], c[401][401], f[401][401], n, m, cnt = 0;
+ll visited[401], c[401][401], f[401][401], n, m;
 vector<vector<ll>> graph;
 
 ll bfs(ll start, ll end)
