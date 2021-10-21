@@ -1,65 +1,108 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 
 typedef long long ll;
 using namespace std;
 
 ll ans = 0;
 
+struct max_heap
+{
+    ll heap[100000], len = 0;
+    void push(ll n);
+    void pop();
+    ll top();
+};
+
+ll max_heap::top()
+{
+    return heap[1];
+}
+
+void max_heap::push(ll n)
+{
+    heap[++len] = n;
+    ll node = len;
+    while (node != 1 && heap[node] > heap[node / 2])
+    {
+        swap(heap[node], heap[node / 2]);
+        node /= 2;
+    }
+}
+
+void max_heap::pop()
+{
+    swap(heap[1], heap[len]);
+    heap[len--] = 0;
+    ll node = 1;
+    while (node * 2 <= len && (heap[node] < heap[node * 2] || heap[node] < heap[node * 2 + 1]))
+    {
+        if (heap[node * 2] > heap[node * 2 + 1] || !heap[node * 2 + 1])
+        {
+            swap(heap[node], heap[node * 2]);
+            node = node * 2;
+        }
+        else
+        {
+            swap(heap[node], heap[node * 2 + 1]);
+            node = node * 2 + 1;
+        }
+    }
+}
+
 void solve()
 {
     ll In, n;
     cin >> n;
-    priority_queue<ll> maxQ, minQ;
+    max_heap maxh, minh;
     for (ll i = 1; i <= n; i++)
     {
         cin >> In;
-        if (maxQ.empty())
+        if (!maxh.len)
         {
-            maxQ.push(In);
+            maxh.push(In);
             ans += In;
         }
-        else if (minQ.empty())
+        else if (!minh.len)
         {
-            ll temp = maxQ.top();
+            ll temp = maxh.top();
             if (temp > In)
             {
-                maxQ.pop();
-                maxQ.push(In);
-                minQ.push(-temp);
+                maxh.pop();
+                maxh.push(In);
+                minh.push(-temp);
             }
             else
-                minQ.push(-In);
+                minh.push(-In);
             ans += (In + temp) / 2;
         }
         else
         {
             if (i % 2)
             {
-                ll minT = -minQ.top();
+                ll minT = -minh.top();
                 if (minT < In)
                 {
-                    minQ.pop();
-                    maxQ.push(minT);
-                    minQ.push(-In);
+                    minh.pop();
+                    maxh.push(minT);
+                    minh.push(-In);
                 }
                 else
-                    maxQ.push(In);
-                ans += maxQ.top();
+                    maxh.push(In);
+                ans += maxh.top();
             }
             else
             {
-                ll maxT = maxQ.top();
+                ll maxT = maxh.top();
                 if (maxT > In)
                 {
-                    maxQ.pop();
-                    maxQ.push(In);
-                    minQ.push(-maxT);
+                    maxh.pop();
+                    maxh.push(In);
+                    minh.push(-maxT);
                 }
                 else
-                    minQ.push(-In);
-                ans += (maxQ.top() - minQ.top()) / 2;
+                    minh.push(-In);
+                ans += (maxh.top() - minh.top()) / 2;
             }
         }
     }
@@ -67,6 +110,10 @@ void solve()
 
 int main(void)
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
     ll TC;
     cin >> TC;
     while (TC--)
