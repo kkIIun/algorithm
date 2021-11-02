@@ -16,11 +16,10 @@ ll recur(ll start, ll end)
         if (v[i] > start && v[i] < end)
         {
             if (!dp[start][end])
-                dp[start][end] = recur(start, v[i]) + recur(v[i], end);
+                dp[start][end] = recur(start, v[i]) + recur(v[i], end) + end - start;
             else
-                dp[start][end] = min(dp[start][end], recur(start, v[i]) + recur(v[i], end));
+                dp[start][end] = min(dp[start][end], recur(start, v[i]) + recur(v[i], end) + end - start);
         }
-    cout << start << ' ' << end << ' ' << dp[start][end] << '\n';
     return dp[start][end];
 }
 
@@ -34,13 +33,8 @@ int main(void)
         dp.assign(n + 1, vector<ll>(n + 1, 0));
         v.assign(m + 1, 0);
         for (ll i = 1; i <= m; i++)
-        {
             cin >> v[i];
-            dp[v[i - 1]][v[i]] = v[i] - v[i - 1];
-        }
-        dp[v[m]][n] = n - v[m];
-        recur(0, n);
-        cout << dp[0][n] << '\n';
+        cout << recur(0, n) << '\n';
     }
     return 0;
 }
